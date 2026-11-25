@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manual del Programador — CookVoice Nariño</title>
+  <style>
+    :root {
+      --primary: #B71C1C;
+      --secondary: #E65100;
+      --dark: #263238;
+      --bg: #FAFAFA;
+      --card: #FFFFFF;
+      --text: #212121;
+      --muted: #5D4037;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    header {
+      background: linear-gradient(135deg, var(--dark), #37474F, var(--primary));
+      color: #fff;
+      padding: 3rem 1.5rem;
+      text-align: center;
+    }
+    header h1 { font-size: 2.2rem; margin-bottom: 0.5rem; }
+    header p { color: #FFCC80; font-size: 1.1rem; max-width: 720px; margin: 0 auto 1.5rem; }
+    .btn-download {
+      display: inline-block;
+      background-color: #FFC107;
+      color: #212121;
+      font-weight: bold;
+      padding: 0.8rem 1.6rem;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: transform 0.2s;
+    }
+    .btn-download:hover { transform: translateY(-2px); }
+    nav {
+      background: #fff;
+      border-bottom: 1px solid #e0e0e0;
+      padding: 0.8rem 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    nav a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    main { max-width: 980px; margin: 2rem auto; padding: 0 1.2rem; }
+    section {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 1.8rem;
+      margin-bottom: 1.8rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    h2 {
+      color: var(--primary);
+      border-bottom: 2px solid #FFCDD2;
+      padding-bottom: 0.4rem;
+      margin-bottom: 1rem;
+      font-size: 1.4rem;
+    }
+    h3 { color: var(--secondary); margin: 1.2rem 0 0.5rem; font-size: 1.1rem; }
+    ul { margin-left: 1.4rem; margin-bottom: 1rem; }
+    li { margin-bottom: 0.4rem; }
+    pre {
+      background: #263238;
+      color: #ECEFF1;
+      padding: 1rem;
+      border-radius: 10px;
+      overflow-x: auto;
+      font-size: 0.9rem;
+      margin: 0.8rem 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      font-size: 0.92rem;
+    }
+    th, td {
+      border: 1px solid #e0e0e0;
+      padding: 0.7rem;
+      text-align: left;
+      vertical-align: top;
+    }
+    th { background-color: var(--primary); color: #fff; }
+    tr:nth-child(even) { background-color: #FFF8F6; }
+    .badge {
+      display: inline-block;
+      background: #FFE0B2;
+      color: #E65100;
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: bold;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>CookVoice Nariño</h1>
+  <p>Manual del Programador — Sistema Inteligente de Recomendación de Recetas mediante IA Generativa y Síntesis de Voz</p>
+  <a class="btn-download" href="ENLACE_A_TU_APK_AQUI" target="_blank">Descargar APK (Android)</a>
+</header>
+
+<nav>
+  <a href="#arquitectura">Arquitectura</a>
+  <a href="#modulos">Módulos</a>
+  <a href="#datos">Modelo de Datos</a>
+  <a href="#trazabilidad">Trazabilidad (CV-01 a CV-12)</a>
+  <a href="#sprints">Sprints y Equipo</a>
+</nav>
+
+<main>
+  <section id="arquitectura">
+    <h2>1. Descripción General y Arquitectura</h2>
+    <p><strong>CookVoice Nariño</strong> es una aplicación móvil nativa para Android construida con <strong>Kotlin</strong> y <strong>Jetpack Compose</strong> bajo un paradigma declarativo reactivo y gestionada mediante la metodología híbrida <strong>Scrumban</strong>.</p>
+    <h3>Stack Tecnológico</h3>
+    <ul>
+      <li><strong>Lenguaje y UI:</strong> Kotlin + Jetpack Compose (<code>ComponentActivity</code>, <code>NavigationBar</code>, <code>LazyColumn</code>, <code>AnimatedContent</code>).</li>
+      <li><strong>Inteligencia Artificial Generativa:</strong> SDK oficial de Google Generative AI (<code>GenerativeModel</code>).</li>
+      <li><strong>Voz y Accesibilidad:</strong> Motor nativo <code>TextToSpeech</code> en español de Colombia (<code>Locale("es", "CO")</code>) y entrada táctil por voz mediante <code>RecognizerIntent</code>.</li>
+    </ul>
+  </section>
+
+  <section id="modulos">
+    <h2>2. Estructura Modular del Código</h2>
+    <h3>Módulo Offline — Recetario Tradicional de Nariño (<code>OfflineScreen</code>)</h3>
+    <ul>
+      <li>Catálogo estático e inmutable (<code>narinoRecipes</code>) con <strong>20 recetas típicas</strong> (postres, amasijos, sopas, bebidas y platos fuertes) enlazadas a recursos gráficos en <code>res/drawable</code>.</li>
+      <li>Tarjetas expandibles (<code>RecipeCard</code>) con tiempo de preparación, calorías, nivel de dificultad, lista de ingredientes y preparación paso a paso.</li>
+      <li>Buscador en tiempo real por nombre o categoría tanto por texto como por micrófono (<code>RecognizerIntent</code>) y lectura completa sin conexión.</li>
+    </ul>
+
+    <h3>Módulo Online — Chef IA Nariñense (<code>OnlineScreen</code>)</h3>
+    <ul>
+      <li><strong>Validación previa:</strong> Exige mínimo 3 ingredientes separados por comas (mostrando alerta <code>Toast</code>) y consulta al modelo para verificar que correspondan a alimentos comestibles válidos.</li>
+      <li><strong>Dictado por voz:</strong> Convierte el audio capturado en términos separados por comas y dispara automáticamente la consulta.</li>
+      <li><strong>Procesamiento y lectura modular:</strong> Limpia el formato con <code>cleanAiText()</code> y separa los resultados en tarjetas independientes (Plato recomendado, Ingredientes, Preparación, Menú Semanal de 3 días y Secreto del Chef) con botones individuales de audio y detención inmediata mediante <code>stopSpeaking()</code>.</li>
+    </ul>
+  </section>
+
+  <section id="datos">
+    <h2>3. Modelo de Datos Principal</h2>
+    <pre><code>data class Recipe(
+    val name: String,
+    val category: String,
+    val difficulty: String,
+    val prepTime: String,
+    val calories: String,
+    val ingredients: List&lt;String&gt;,
+    val preparation: String,
+    val imageRes: Int
+)
+
+data class ParsedRecipe(
+    val title: String,
+    val ingredients: String,
+    val preparation: String
+)</code></pre>
+  </section>
+
+  <section id="trazabilidad">
+    <h2>4. Matriz de Referencia de Componentes</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Componente</th>
+          <th>Descripción Técnica</th>
+          <th>Sprint</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>CV-01</strong></td><td>Arquitectura Base</td><td>Entorno Kotlin + Jetpack Compose, <code>NavigationBar</code> y configuración de voz.</td><td>Sprint 0</td></tr>
+        <tr><td><strong>CV-02</strong></td><td>Modelos de Datos</td><td>Estructuras <code>Recipe</code> y <code>ParsedRecipe</code>.</td><td>Sprint 0 / 1</td></tr>
+        <tr><td><strong>CV-03</strong></td><td>SplashScreen</td><td>Pantalla de bienvenida animada con corrutinas.</td><td>Sprint 1</td></tr>
+        <tr><td><strong>CV-04</strong></td><td>Catálogo Offline</td><td>20 recetas tradicionales en <code>narinoRecipes</code> con recursos gráficos.</td><td>Sprint 1</td></tr>
+        <tr><td><strong>CV-05</strong></td><td>Vista Offline</td><td><code>OfflineScreen</code> y tarjetas expandibles <code>RecipeCard</code>.</td><td>Sprint 1</td></tr>
+        <tr><td><strong>CV-06</strong></td><td>Buscador Local</td><td>Filtrado en tiempo real por texto y <code>RecognizerIntent</code>.</td><td>Sprint 1</td></tr>
+        <tr><td><strong>CV-07</strong></td><td>Síntesis Base</td><td>Lectura autónoma con <code>TextToSpeech</code> (<code>es-CO</code>).</td><td>Sprint 1</td></tr>
+        <tr><td><strong>CV-08</strong></td><td>Conexión Chef IA</td><td>Integración con <code>GenerativeModel</code> en <code>OnlineScreen</code>.</td><td>Sprint 2</td></tr>
+        <tr><td><strong>CV-09</strong></td><td>Validaciones</td><td>Filtro de mínimo 3 ingredientes y validación de comestibilidad.</td><td>Sprint 2</td></tr>
+        <tr><td><strong>CV-10</strong></td><td>Voz Online</td><td>Dictado por voz formateado por comas y disparo automático.</td><td>Sprint 2</td></tr>
+        <tr><td><strong>CV-11</strong></td><td>Menú y Secreto</td><td>Limpieza con <code>cleanAiText</code> y tarjetas de Menú Semanal y Secreto del Chef.</td><td>Sprint 2</td></tr>
+        <tr><td><strong>CV-12</strong></td><td>Audio Modular</td><td>Lectura independiente por sección y barra flotante con <code>stopSpeaking</code>.</td><td>Sprint 2</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="sprints">
+    <h2>5. Ejecución de Sprints y Equipo</h2>
+    <ul>
+      <li><span class="badge">Sprint 0</span> <strong>06/09/2026 – 20/09/2026:</strong> Preparación, Arquitectura y Configuración Inicial — <strong>Jean Romero</strong>.</li>
+      <li><span class="badge">Sprint 1</span> <strong>21/09/2026 – 05/10/2026:</strong> Núcleo Funcional y Módulo Offline Documentado — <strong>Jhosep Pantoja</strong>.</li>
+      <li><span class="badge">Sprint 2</span> <strong>06/10/2026 – 27/10/2026:</strong> Módulo Online, Inteligencia Generativa y Funciones Avanzadas — <strong>Juan Romo</strong>.</li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  CookVoice Nariño — Universidad de Nariño | Manual Técnico de Desarrollo
+</footer>
+
+</body>
+</html>
